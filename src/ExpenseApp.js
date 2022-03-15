@@ -1,8 +1,8 @@
 // import Footer from "./components/Footer/Footer";
-import { Grid } from "@mui/material";
 import Details from './components/Details/Details';
 import MainApp from "./components/MainApp/MainApp";
 import useStyles from "./ExpenseStyles";
+import { Grid } from "@mui/material";
 const ExpenseApp=()=>{
     const classes=useStyles();
 return(

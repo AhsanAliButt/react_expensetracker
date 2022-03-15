@@ -1,6 +1,6 @@
-import useStyles from "./styles";
 import {List as MUIList,ListItem,ListItemAvatar,ListItemText,Avatar,ListItemSecondaryAction,IconButton,Slide} from '@material-ui/core';
-import {MoneyOff,Delete} from '@mui/icons-material'; 
+import {MoneyOff,Delete} from '@mui/icons-material';
+import useStyles from "./styles"; 
 
 const List=()=> {
     const classes=useStyles();
