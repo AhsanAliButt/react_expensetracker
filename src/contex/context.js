@@ -1,4 +1,5 @@
 import { useReducer,createContext } from "react";
+import { contextReducer } from "./ContextReducer";
 
 const initialState=[];
 
@@ -6,7 +7,15 @@ const initialState=[];
 export const ExpenseTrackerContext=createContext(initialState);
 
 export const Provider = ({children})=>{
-    <ExpenseTrackerContext.Provider value={{appName : "Expense Tracker"}}>
+    const [transactions, dispatch] = useReducer(contextReducer,initialState)
+    const deleteTransaction=(id)=>{
+        dispatch({type:"Delete_Transaction", payload:id});
+    }
+    const AddTransaction=(transaction)=>{
+        dispatch({type:"Add_Transaction",payload:transaction})
+    }
+    return(
+    <ExpenseTrackerContext.Provider value={{ deleteTransaction,AddTransaction}}>
         {children}
-    </ExpenseTrackerContext.Provider>
+    </ExpenseTrackerContext.Provider>)
 }

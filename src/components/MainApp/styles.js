@@ -21,12 +21,6 @@ export default makeStyles((theme) => ({
   divider: {
     margin: '20px 0',
   },
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  }
 }));
 
 
