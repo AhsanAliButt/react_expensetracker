@@ -7,18 +7,10 @@ import useStyles from "./styles";
 
 const List=()=> {
     const classes=useStyles();
-    const globalState=useContext(ExpenseTrackerContext);
-    console.log(globalState);
-    const Transactions=[{
-      id:1,type:"Income",category:"Salary",amount:50,date: "Tue Mar 15"
-    },{
-      id:2,type:"Expense",category:"Salary",amount:50,date: "Tue Mar 15"
-    },{
-      id:3,type:"Income",category:"Salary",amount:50,date: "Tue Mar 15"
-    }];
+    const {deleteTransaction,transactions}=useContext(ExpenseTrackerContext);
   return (
     <MUIList dense={false} className={classes.list}>
-      {Transactions.map((transaction)=>(
+      {transactions.map((transaction)=>(
         <Slide direction="down" in mountOnEnter unmountOnExit key={transaction.id}>
           <ListItem>
             <ListItemAvatar>
@@ -28,7 +20,7 @@ const List=()=> {
             </ListItemAvatar>
             <ListItemText primary={transaction.category} secondary={`$${transaction.amount} - ${transaction.date}`}/>
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="delete" onClick={()=>{console.log("Will add leter")}}>
+              <IconButton edge="end" aria-label="delete" onClick={()=>deleteTransaction(transaction.id)}>
                 <Delete />
               </IconButton>
             </ListItemSecondaryAction>

@@ -7,7 +7,7 @@ const ExpenseApp=()=>{
     const classes=useStyles();
 return(
     <>
-    <Grid container spacing={0} className={classes.grid} alignItems="center" justify="center" style={{height:'100vh'}}> 
+    <Grid container className={classes.grid} spacing={0} alignItems="center" justify="center" style={{height:'100vh'}}> 
         <Grid item xs={12} sm={4} >
             <Details title="income" />
             </Grid>
