@@ -1,16 +1,20 @@
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
-import { Doughnut } from "react-chartjs-2";
+import useTransactions from "../../useTransaction";
 import useStyles from './styles';
+import { Chart as ChartJs,ArcElement,Tooltip,Legend } from 'chart.js';
+import { Doughnut } from "react-chartjs-2";
+ChartJs.register(Tooltip,Legend,ArcElement)
 
-const Details = ({title}) => {
+const Details = ({title,subheader}) => {
+  const {total,chartData} = useTransactions(title);
   const classes = useStyles();
   return (
 
-    <Card className={ title==='income' ? classes.income : classes.expense}>
-    <CardHeader title={title} />
+    <Card className={ title ==='Income' ? classes.income : classes.expense }>
+    <CardHeader title={title} subheader={subheader} />
     <CardContent>
-        <Typography variant="h5"> $5 </Typography>
-        {/* <Doughnut /> */}
+        <Typography variant="h5"> ${total} </Typography>
+        <Doughnut data={chartData} />
       </CardContent>
     </Card>
   )
