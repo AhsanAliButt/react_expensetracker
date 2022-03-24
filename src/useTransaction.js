@@ -8,6 +8,7 @@ const useTransactions = (title) => {
     const transactionsPerType = transactions.filter((t) => t.type === title);
     console.log({transactionsPerType})
     const total = transactionsPerType.reduce((acc, currVal) => acc += currVal.amount, 0);
+    const balance=transactions.amount;
     const categories = title === 'Income' ? incomeCategories : expenseCategories;
     console.log({transactionsPerType,total,categories})
     transactionsPerType.forEach((t) => {
