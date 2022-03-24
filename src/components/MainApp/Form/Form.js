@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import useStyles from "./styles";
 import { useSpeechContext } from "@speechly/react-client";
 import { incomeCategories, expenseCategories } from "../../constants/catogries";
+import { forEachChild } from "typescript";
 const initialState = {
     amount: '',
     category: '',
@@ -18,7 +19,6 @@ const Form = () => {
     const [formData, setFormData] = useState(initialState)
     const { addTransaction } = useContext(ExpenseTrackerContext)
     const selectedCategories = formData.type === 'Income' ? incomeCategories : expenseCategories;
-    const {segment}=useSpeechContext();
     const createTransaction = () => {
         const transaction = { ...formData, amount: Number(formData.amount), id: uuidv4(), }
         if (transaction.amount === "" || transaction.category === "" || transaction.date === "" || transaction.type === "") {
@@ -28,6 +28,34 @@ const Form = () => {
             setFormData(initialState)
         }
     }
+    const {segment}=useSpeechContext();
+    useEffect((formData,createTransaction) => {
+        if(segment){
+            if(segment.intent.intent === 'add_expense'){
+                setFormData({ ...formData, type: 'Expense' });
+            } else if (segment.intent.intent === 'add_income'){
+                setFormData({...formData, type: 'Income'})
+            }else if(segment.isFinal && segment.intent.intent === "create_transaction"){
+                return createTransaction();
+            }else if(segment.isFinal && segment.intent.intent === "cancel_transaction"){
+                return setFormData(initialState);
+            }
+            segment.entities.forEach((e) =>{
+                switch (e.type){
+                    case 'amount':
+                        setFormData({...formData,amount:e.value});
+                        break;
+                    case 'category':
+                        setFormData({...formData, category:e.value});
+                    case 'date':
+                        setFormData({...formData, date:e.value});
+                    default:
+                        break;
+                }
+            })
+      }
+    }, [segment]);
+    
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
