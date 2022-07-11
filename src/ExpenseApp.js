@@ -17,7 +17,7 @@ const ExpenseApp = () => {
                     <MainApp />
                 </Grid>
                 <Grid item xs={12} sm={4} className={classes.desktop} >
-                    <Details title="Income" />
+                    <Details title="Income" subheader="Powered By Ahsan Ali" />
                 </Grid>
                 <Grid item xs={12} sm={4} className={classes.last} >
                     <Details title="Expense" />
